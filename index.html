@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#211a3b">
+<meta name="description" content="برنامه‌ریز شخصی جادویی و کتابخانه رمان‌ها">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>دنیای جادویی من</title>
+<style>
+:root{--bg:#100e20;--panel:#211b38;--panel2:#2b2346;--line:#4d416d;--text:#fff8ff;--muted:#c9bddf;--pink:#f2b8dc;--lilac:#cbb5ff;--gold:#f4d58d;--green:#b9e5ce;--danger:#ffb6bd}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#34254f 0%,var(--bg) 58%);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
+button,input,textarea,select{font:inherit}button{cursor:pointer;border:0}
+.shell{max-width:760px;margin:auto;padding:18px 14px 90px}
+header{padding:20px 18px 18px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(140deg,#382850eF,#1d1834f2);position:relative;overflow:hidden}
+header:after{content:"✦  ·  ☾  ·  ✧";position:absolute;left:15px;top:14px;color:#f4d58d88;font-size:24px;letter-spacing:7px}
+.eyebrow{color:var(--gold);font-size:12px;letter-spacing:1px}.hero-title{font-size:27px;margin:9px 0 4px}.subtitle{color:var(--muted);font-size:13px;margin:0}
+.date{margin-top:15px;color:#eadfff;font-size:13px}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:14px 0 8px;scrollbar-width:none}.tabs button{white-space:nowrap;background:#211b38;border:1px solid var(--line);color:var(--muted);padding:10px 13px;border-radius:14px}.tabs button.active{background:#e2c7ff;color:#251a3a;border-color:#e2c7ff;font-weight:700}
+.panel{background:#1c1730;border:1px solid var(--line);border-radius:20px;padding:16px;margin-top:10px}.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.section-head h2{font-size:19px;margin:0}.small{font-size:12px;color:var(--muted)}.progress{height:7px;background:#39304f;border-radius:99px;overflow:hidden;margin:12px 0}.progress span{display:block;height:100%;background:linear-gradient(90deg,var(--pink),var(--lilac));width:0;transition:width .2s}
+.row{display:flex;align-items:center;gap:10px}.grow{flex:1;min-width:0}.task{display:flex;align-items:flex-start;gap:10px;padding:12px 0;border-bottom:1px solid #ffffff12}.task:last-child{border-bottom:0}.task input[type=checkbox]{accent-color:#d7b9ff;width:19px;height:19px;margin-top:2px;flex-shrink:0}.task.done .task-text{text-decoration:line-through;color:#9f93b5}.task-text{overflow-wrap:anywhere}.tag{display:inline-block;font-size:11px;color:#241b37;background:var(--gold);padding:3px 8px;border-radius:99px;margin-top:5px}.empty{color:var(--muted);font-size:13px;padding:15px 0;text-align:center}
+.btn{background:#d9c2ff;color:#241b39;padding:10px 13px;border-radius:12px;font-weight:700}.btn.secondary{background:#352a50;color:var(--text);border:1px solid var(--line)}.btn.danger{background:#542b45;color:#ffe6eb}.btn.smallbtn{padding:7px 10px;font-size:12px}.actions{display:flex;gap:7px;flex-wrap:wrap}
+input[type=text],input[type=date],textarea,select{width:100%;background:#120f21;border:1px solid #55466f;color:var(--text);border-radius:12px;padding:11px;outline:none}textarea{resize:vertical;min-height:95px}label{display:block;color:var(--muted);font-size:12px;margin:10px 0 5px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.formgrid .full{grid-column:1/-1}.bookgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.book{border:1px solid var(--line);border-radius:16px;padding:13px;background:linear-gradient(160deg,#2b2246,#1b172e);min-width:0}.book .cover{font-size:27px;margin-bottom:8px}.book h3{font-size:15px;margin:0 0 5px;overflow-wrap:anywhere}.book p{font-size:12px;color:var(--muted);margin:0 0 9px}.book .actions{margin-top:10px}.stars{color:var(--gold);font-size:12px}.note{background:#29213f;border-right:3px solid var(--pink);border-radius:10px;padding:10px;color:#e9dff8;font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere;margin-top:8px}.hide{display:none!important}.footer{text-align:center;color:#8f82a9;font-size:11px;padding:22px 0 0}.notice{font-size:12px;color:#d8cbe9;line-height:1.7;background:#2a2241;border-radius:12px;padding:12px;margin-top:10px}
+@media(min-width:560px){.bookgrid{grid-template-columns:repeat(3,minmax(0,1fr))}.shell{padding-top:26px}.hero-title{font-size:32px}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header>
+<div class="eyebrow">✦ YOUR PERSONAL MAGIC WORLD ✦</div>
+<h1 class="hero-title">دنیای جادویی من <span aria-hidden="true">🌙</span></h1>
+<p class="subtitle">هر قدم کوچک، یک طلسم برای آینده‌ات است.</p>
+<div class="date" id="today"></div>
+</header>
+<nav class="tabs" aria-label="بخش‌ها">
+<button class="active" data-tab="daily">✨ مأموریت‌های امروز</button>
+<button data-tab="study">📚 مأموریت‌های درسی</button>
+<button data-tab="library">🔮 کتابخانه جادویی</button>
+<button data-tab="journal">🌙 دفتر شبانه</button>
+<button data-tab="settings">🗝️ پشتیبان و حریم خصوصی</button>
+</nav>
+<main>
+<section id="daily" class="view">
+<div class="panel">
+<div class="section-head"><h2>✨ کارهای امروز</h2><span class="small" id="dailyCount">۰ از ۰</span></div>
+<div class="progress"><span id="dailyProgress"></span></div>
+<div class="row"><div class="grow"><input id="taskInput" type="text" maxlength="140" placeholder="مثلاً ۲۰ دقیقه انگلیسی بخوانم"></div><button class="btn" id="addTask">افزودن +</button></div>
+<div id="taskList"></div>
+<div class="notice">لازم نیست روزت بی‌نقص باشد؛ فقط یک قدم کوچک هم پیشرفت است. ✨</div>
+</div>
+</section>
+<section id="study" class="view hide">
+<div class="panel">
+<div class="section-head"><h2>📚 مأموریت‌های درسی</h2><span class="small" id="studyCount">۰ انجام‌شده</span></div>
+<div class="formgrid">
+<div><label for="studyTitle">موضوع / درس</label><input id="studyTitle" type="text" maxlength="120" placeholder="مثلاً حقوق مدنی"></div>
+<div><label for="studyTime">زمان هدف</label><select id="studyTime"><option>۱۵ دقیقه</option><option selected>۲۵ دقیقه</option><option>۴۵ دقیقه</option><option>۶۰ دقیقه</option><option>۹۰ دقیقه</option></select></div>
+<div class="full"><label for="studyDetail">کار مشخص</label><input id="studyDetail" type="text" maxlength="180" placeholder="مثلاً مرور مواد مهم و حل ۵ سؤال"></div>
+</div>
+<button class="btn" id="addStudy" style="margin-top:10px">ثبت مأموریت درسی +</button>
+<div id="studyList"></div>
+</div>
+</section>
+<section id="library" class="view hide">
+<div class="panel">
+<div class="section-head"><h2>🔮 کتابخانه جادویی</h2><span class="small" id="bookCount">۰ رمان</span></div>
+<div class="formgrid">
+<div class="full"><label for="bookTitle">نام کتاب / رمان</label><input id="bookTitle" type="text" maxlength="140" placeholder="نام رمان..."></div>
+<div><label for="bookAuthor">نویسنده</label><input id="bookAuthor" type="text" maxlength="100" placeholder="نام نویسنده"></div>
+<div><label for="bookStatus">وضعیت مطالعه</label><select id="bookStatus"><option value="reading">در حال خواندن</option><option value="want">می‌خواهم بخوانم</option><option value="finished">خوانده‌شده</option><option value="paused">فعلاً متوقف</option></select></div>
+<div><label for="bookRating">امتیاز شخصی</label><select id="bookRating"><option value="0">هنوز امتیاز نداده‌ام</option><option value="1">۱ از ۵</option><option value="2">۲ از ۵</option><option value="3">۳ از ۵</option><option value="4">۴ از ۵</option><option value="5">۵ از ۵</option></select></div>
+<div><label for="bookDate">تاریخ پایان (اختیاری)</label><input id="bookDate" type="date"></div>
+<div class="full"><label for="bookReview">نقد، نکته یا نقل‌قول شخصی</label><textarea id="bookReview" maxlength="5000" placeholder="شخصیت محبوبم، موضوعی که به فکرم برد، پایان داستان، نکته‌هایی برای بعد..."></textarea></div>
+</div>
+<button class="btn" id="saveBook" style="margin-top:10px">افزودن به کتابخانه +</button>
+<button class="btn secondary hide" id="cancelEdit" style="margin-top:10px">لغو ویرایش</button>
+<div class="notice">نکته: برای هر رمان می‌توانی نقدت را بعداً ویرایش کنی. اگر کتابی را تمام کردی، وضعیتش را روی «خوانده‌شده» بگذار. 📖</div>
+</div>
+<div class="panel">
+<div class="section-head"><h2>قفسه کتاب‌ها</h2><select id="bookFilter" style="width:auto;max-width:160px"><option value="all">همه کتاب‌ها</option><option value="reading">در حال خواندن</option><option value="want">می‌خواهم بخوانم</option><option value="finished">خوانده‌شده</option><option value="paused">متوقف</option></select></div>
+<div class="bookgrid" id="bookList"></div>
+</div>
+</section>
+<section id="journal" class="view hide">
+<div class="panel">
+<div class="section-head"><h2>🌙 دفتر شبانه</h2><span class="small">یادداشت برای خودت</span></div>
+<label for="mood">حال‌وهوای امروز</label><select id="mood"><option value="">انتخاب کن...</option><option>🌟 عالی</option><option>🌷 خوب</option><option>☁️ معمولی</option><option>🌧️ سخت</option><option>🌙 خسته</option></select>
+<label for="journalText">امروز چه چیزی می‌خواهم به یاد داشته باشم؟</label>
+<textarea id="journalText" maxlength="3000" placeholder="یک اتفاق، یک فکر، یا چیزی که بابتش خوشحالم..."></textarea>
+<button class="btn" id="saveJournal" style="margin-top:10px">ذخیره یادداشت امروز</button>
+<p class="small" id="journalSaved"></p>
+</div>
+</section>
+<section id="settings" class="view hide">
+<div class="panel">
+<div class="section-head"><h2>🗝️ پشتیبان و حریم خصوصی</h2></div>
+<p class="small" style="line-height:1.9">یادداشت‌ها و فهرست‌ها در حافظه همین مرورگر روی همین دستگاه ذخیره می‌شوند؛ برای استفاده عادی به حساب کاربری نیاز نیست. این نسخه اطلاعات را به سرور نمی‌فرستد، اما داده‌ها رمزگذاری‌شده نیستند. اگر حافظه مرورگر پاک شود یا گوشی عوض شود، ممکن است داده‌ها از بین بروند؛ پس هر از گاهی پشتیبان بگیر.</p>
+<div class="actions"><button class="btn" id="exportData">گرفتن نسخه پشتیبان ⤓</button><button class="btn secondary" id="importBtn">بازیابی پشتیبان ⤒</button><input id="importFile" type="file" accept="application/json,.json" class="hide"></div>
+<div class="notice">برای حریم خصوصی بیشتر، قفل صفحه گوشی‌ات را فعال نگه دار و این برنامه را روی دستگاه مشترک باز نگذار. اگر می‌خواهی اطلاعات را به گوشی دیگری ببری، ابتدا پشتیبان بگیر.</div>
+<div style="margin-top:16px"><button class="btn danger" id="clearData">پاک‌کردن همه اطلاعات این برنامه</button></div>
+</div>
+</section>
+</main>
+<div class="footer">ساخته‌شده برای دنیای تو · ✦ ☾ ✧<br>نسخه شخصی ۱٫۰</div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const KEY='enchanted-planner-v1';
+const faNums=n=>String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[+d]);
+const todayKey=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
+const state=loadState();
+function loadState(){try{return Object.assign({tasks:[],studies:[],books:[],journals:{}},JSON.parse(localStorage.getItem(KEY)||'{}'))}catch(e){return {tasks:[],studies:[],books:[],journals:{}}}}
+function save(){localStorage.setItem(KEY,JSON.stringify(state))}
+function id(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function dateLabel(){const d=new Date();$('today').textContent=d.toLocaleDateString('fa-IR',{weekday:'long',year:'numeric',month:'long',day:'numeric'})+' · روز تازه، فرصت تازه ✨'}
+dateLabel();
+document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.view').forEach(x=>x.classList.toggle('hide',x.id!==b.dataset.tab))}));
+function renderTasks(){let tasks=state.tasks.filter(t=>t.day===todayKey());$('taskList').innerHTML=tasks.length?tasks.map(t=>`<div class="task ${t.done?'done':''}"><input type="checkbox" data-task="${t.id}" ${t.done?'checked':''} aria-label="انجام شد"><div class="grow task-text">${esc(t.text)}</div><button class="btn secondary smallbtn" data-del-task="${t.id}">حذف</button></div>`).join(''):'<div class="empty">هنوز مأموریتی ثبت نشده؛ یک کار کوچک اضافه کن ✨</div>';let done=tasks.filter(t=>t.done).length;$('dailyCount').textContent=`${faNums(done)} از ${faNums(tasks.length)}`;$('dailyProgress').style.width=(tasks.length?done/tasks.length*100:0)+'%'}
+$('addTask').onclick=()=>{let text=$('taskInput').value.trim();if(!text)return;state.tasks.push({id:id(),text,day:todayKey(),done:false});$('taskInput').value='';save();renderTasks()};
+$('taskInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('addTask').click()});
+$('taskList').addEventListener('change',e=>{if(e.target.dataset.task){let t=state.tasks.find(x=>x.id===e.target.dataset.task);if(t)t.done=e.target.checked;save();renderTasks()}});
+$('taskList').addEventListener('click',e=>{let b=e.target.closest('[data-del-task]');if(b){state.tasks=state.tasks.filter(t=>t.id!==b.dataset.delTask);save();renderTasks()}});
+function renderStudies(){let arr=state.studies;$('studyCount').textContent=`${faNums(arr.filter(s=>s.done).length)} انجام‌شده`; $('studyList').innerHTML=arr.length?arr.map(s=>`<div class="task ${s.done?'done':''}"><input type="checkbox" data-study="${s.id}" ${s.done?'checked':''}><div class="grow"><div class="task-text"><b>${esc(s.title)}</b> · ${esc(s.time)}</div><div class="small">${esc(s.detail)}</div></div><button class="btn secondary smallbtn" data-del-study="${s.id}">حذف</button></div>`).join(''):'<div class="empty">مأموریت درسی‌ات را اینجا بساز 📚</div>'}
+$('addStudy').onclick=()=>{let title=$('studyTitle').value.trim();if(!title){$('studyTitle').focus();return}state.studies.unshift({id:id(),title,time:$('studyTime').value,detail:$('studyDetail').value.trim(),done:false});$('studyTitle').value='';$('studyDetail').value='';save();renderStudies()};
+$('studyList').addEventListener('change',e=>{if(e.target.dataset.study){let s=state.studies.find(x=>x.id===e.target.dataset.study);if(s)s.done=e.target.checked;save();renderStudies()}});
+$('studyList').addEventListener('click',e=>{let b=e.target.closest('[data-del-study]');if(b){state.studies=state.studies.filter(s=>s.id!==b.dataset.delStudy);save();renderStudies()}});
+const statusNames={reading:'در حال خواندن',want:'می‌خواهم بخوانم',finished:'خوانده‌شده',paused:'فعلاً متوقف'};
+let editingBook=null;
+function resetBookForm(){editingBook=null;['bookTitle','bookAuthor','bookReview','bookDate'].forEach(x=>$(x).value='');$('bookStatus').value='reading';$('bookRating').value='0';$('saveBook').textContent='افزودن به کتابخانه +';$('cancelEdit').classList.add('hide')}
+$('saveBook').onclick=()=>{let title=$('bookTitle').value.trim();if(!title){$('bookTitle').focus();return}let data={title,author:$('bookAuthor').value.trim(),status:$('bookStatus').value,rating:+$('bookRating').value,date:$('bookDate').value,review:$('bookReview').value.trim()};if(editingBook){Object.assign(state.books.find(b=>b.id===editingBook),data)}else state.books.unshift({id:id(),...data,created:Date.now()});save();resetBookForm();renderBooks()};
+$('cancelEdit').onclick=resetBookForm;
+$('bookFilter').onchange=renderBooks;
+function renderBooks(){let filter=$('bookFilter').value;let books=state.books.filter(b=>filter==='all'||b.status===filter);$('bookCount').textContent=`${faNums(state.books.length)} رمان`;$('bookList').innerHTML=books.length?books.map(b=>`<article class="book"><div class="cover">📖</div><h3>${esc(b.title)}</h3><p>${esc(b.author||'نویسنده ثبت نشده')}</p><span class="tag">${statusNames[b.status]||'در حال خواندن'}</span>${b.rating?`<div class="stars" style="margin-top:7px">${'★'.repeat(b.rating)}${'☆'.repeat(5-b.rating)}</div>`:''}${b.date?`<p style="margin-top:7px">پایان: ${esc(b.date)}</p>`:''}${b.review?`<div class="note">${esc(b.review)}</div>`:''}<div class="actions"><button class="btn secondary smallbtn" data-edit-book="${b.id}">ویرایش</button><button class="btn secondary smallbtn" data-finish-book="${b.id}">${b.status==='finished'?'خوانده شد ✓':'تمام کردم ✓'}</button><button class="btn danger smallbtn" data-del-book="${b.id}">حذف</button></div></article>`).join(''):'<div class="empty" style="grid-column:1/-1">این قفسه فعلاً خالی است؛ اولین رمانت را اضافه کن 🌙</div>'}
+$('bookList').addEventListener('click',e=>{let edit=e.target.closest('[data-edit-book]'),finish=e.target.closest('[data-finish-book]'),del=e.target.closest('[data-del-book]');if(edit){let b=state.books.find(x=>x.id===edit.dataset.editBook);if(!b)return;editingBook=b.id;$('bookTitle').value=b.title;$('bookAuthor').value=b.author;$('bookStatus').value=b.status;$('bookRating').value=b.rating;$('bookDate').value=b.date;$('bookReview').value=b.review;$('saveBook').textContent='ذخیره تغییرات';$('cancelEdit').classList.remove('hide');window.scrollTo({top:0,behavior:'smooth'})}if(finish){let b=state.books.find(x=>x.id===finish.dataset.finishBook);if(b){b.status='finished';if(!b.date)b.date=todayKey();save();renderBooks()}}if(del&&confirm('این رمان و یادداشتش حذف شود؟')){state.books=state.books.filter(x=>x.id!==del.dataset.delBook);save();renderBooks()}});
+function loadJournal(){let j=state.journals[todayKey()]||{};$('mood').value=j.mood||'';$('journalText').value=j.text||'';$('journalSaved').textContent=j.saved?'یادداشت امروز ذخیره شده است.':''}
+$('saveJournal').onclick=()=>{state.journals[todayKey()]={mood:$('mood').value,text:$('journalText').value,saved:true};save();$('journalSaved').textContent='یادداشت امروز ذخیره شد ✨'};
+$('exportData').onclick=()=>{let blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='my-magical-world-backup-'+todayKey()+'.json';a.click();URL.revokeObjectURL(url)};
+$('importBtn').onclick=()=>$('importFile').click();
+$('importFile').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let data=JSON.parse(await f.text());if(!Array.isArray(data.tasks)||!Array.isArray(data.books)||!Array.isArray(data.studies))throw Error();if(confirm('اطلاعات فعلی با نسخه پشتیبان جایگزین شود؟')){Object.assign(state,data);save();renderAll();alert('پشتیبان بازیابی شد.')}}catch(err){alert('فایل پشتیبان معتبر نیست.')}e.target.value=''};
+$('clearData').onclick=()=>{if(confirm('مطمئنی؟ تمام مأموریت‌ها، کتاب‌ها و یادداشت‌ها پاک می‌شوند.')){state.tasks=[];state.studies=[];state.books=[];state.journals={};save();renderAll();resetBookForm()}};
+function renderAll(){renderTasks();renderStudies();renderBooks();loadJournal()}
+renderAll();loadJournal();
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script>
+</body>
+</html>
